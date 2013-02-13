@@ -562,31 +562,31 @@ namespace Newtonsoft.Json.Serialization
       {
 #if NETFX_CORE
         if (!t.IsGenericType() || (t.GetGenericTypeDefinition() != typeof(ConcurrentDictionary<,>)))
-          contract.OnSerializingMethods = onSerializing;
+          contract.SetOnSerializingMethods(onSerializing);
 #else
-        contract.OnSerializingMethods = onSerializing;
+        contract.SetOnSerializingMethods(onSerializing);
 #endif
       }
 
       if (onSerialized != null)
-        contract.OnSerializedMethods = onSerialized;
+        contract.SetOnSerializedMethods(onSerialized);
 
       if (onDeserializing != null)
-        contract.OnDeserializingMethods = onDeserializing;
+        contract.SetOnDeserializingMethods(onDeserializing);
 
       if (onDeserialized != null)
       {
         // ConcurrentDictionary throws an error here so don't use its OnDeserialized - http://json.codeplex.com/discussions/257093
 #if !(NET35 || NET20 || SILVERLIGHT || WINDOWS_PHONE || PORTABLE)
         if (!t.IsGenericType() || (t.GetGenericTypeDefinition() != typeof(ConcurrentDictionary<,>)))
-          contract.OnDeserializedMethods = onDeserialized;
+          contract.SetOnDeserializedMethods(onDeserialized);
 #else
         contract.OnDeserializedMethods = onDeserialized;
 #endif
       }
 
       if (onError != null)
-        contract.OnErrorMethods = onError;
+        contract.SetOnErrorMethods(onError);
     }
 
     private void GetCallbackMethodsForType(Type type, out List<MethodInfo> onSerializing, out List<MethodInfo> onSerialized, out List<MethodInfo> onDeserializing, out List<MethodInfo> onDeserialized, out List<MethodInfo> onError)
